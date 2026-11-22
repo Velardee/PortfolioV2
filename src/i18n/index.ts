@@ -13,13 +13,14 @@ export function t(locale: Locale, key: UiKey): string {
 
 type Route = 'home' | 'case' | 'thanks';
 
+// Every path ends in "/" so links, canonical, hreflang and sitemap agree (trailingSlash: 'always').
 const routes: Record<Locale, Record<Route, string>> = {
-  es: { home: '/', case: '/trabajo/', thanks: '/gracias' },
-  en: { home: '/en/', case: '/en/work/', thanks: '/en/thanks' },
+  es: { home: '/', case: '/trabajo/', thanks: '/gracias/' },
+  en: { home: '/en/', case: '/en/work/', thanks: '/en/thanks/' },
 };
 
 export function localizedPath(locale: Locale, route: Route, slug?: string): string {
-  return route === 'case' ? routes[locale].case + slug : routes[locale][route];
+  return route === 'case' ? `${routes[locale].case}${slug}/` : routes[locale][route];
 }
 
 export function alternatePath(pathname: string): Record<Locale, string> {

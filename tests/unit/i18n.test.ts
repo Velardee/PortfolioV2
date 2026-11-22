@@ -20,20 +20,20 @@ describe('localizedPath', () => {
   test('builds every route for both locales', () => {
     expect(localizedPath('es', 'home')).toBe('/');
     expect(localizedPath('en', 'home')).toBe('/en/');
-    expect(localizedPath('en', 'case', 'motionode')).toBe('/en/work/motionode');
-    expect(localizedPath('es', 'case', 'motionode')).toBe('/trabajo/motionode');
-    expect(localizedPath('es', 'thanks')).toBe('/gracias');
-    expect(localizedPath('en', 'thanks')).toBe('/en/thanks');
+    expect(localizedPath('en', 'case', 'motionode')).toBe('/en/work/motionode/');
+    expect(localizedPath('es', 'case', 'motionode')).toBe('/trabajo/motionode/');
+    expect(localizedPath('es', 'thanks')).toBe('/gracias/');
+    expect(localizedPath('en', 'thanks')).toBe('/en/thanks/');
   });
 });
 
 describe('alternatePath', () => {
   test('maps a case page to its twin in the other language', () => {
-    expect(alternatePath('/trabajo/judigo-legal')).toEqual({ es: '/trabajo/judigo-legal', en: '/en/work/judigo-legal' });
-    expect(alternatePath('/en/work/judigo-legal/')).toEqual({ es: '/trabajo/judigo-legal', en: '/en/work/judigo-legal' });
+    expect(alternatePath('/trabajo/judigo-legal')).toEqual({ es: '/trabajo/judigo-legal/', en: '/en/work/judigo-legal/' });
+    expect(alternatePath('/en/work/judigo-legal/')).toEqual({ es: '/trabajo/judigo-legal/', en: '/en/work/judigo-legal/' });
   });
   test('maps thanks and home', () => {
-    expect(alternatePath('/en/thanks')).toEqual({ es: '/gracias', en: '/en/thanks' });
+    expect(alternatePath('/en/thanks')).toEqual({ es: '/gracias/', en: '/en/thanks/' });
     expect(alternatePath('/en/')).toEqual({ es: '/', en: '/en/' });
     expect(alternatePath('/')).toEqual({ es: '/', en: '/en/' });
   });

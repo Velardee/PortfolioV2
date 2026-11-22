@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://portfolio-hugovelarde.netlify.app',
+  trailingSlash: 'always',
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
@@ -12,6 +13,9 @@ export default defineConfig({
   },
   vite: { plugins: [tailwindcss()] },
   integrations: [
-    sitemap({ i18n: { defaultLocale: 'es', locales: { es: 'es-MX', en: 'en-US' } } }),
+    sitemap({
+      i18n: { defaultLocale: 'es', locales: { es: 'es-MX', en: 'en-US' } },
+      filter: (page) => !/\/(gracias|thanks)\/$/.test(page),
+    }),
   ],
 });
