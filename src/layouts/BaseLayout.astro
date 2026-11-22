@@ -15,9 +15,10 @@ interface Props {
   description: string;
   image?: string;
   jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
 }
 
-const { locale, title, description, image, jsonLd } = Astro.props;
+const { locale, title, description, image, jsonLd, noindex } = Astro.props;
 ---
 
 <!doctype html>
@@ -42,6 +43,7 @@ const { locale, title, description, image, jsonLd } = Astro.props;
     </script>
     <Seo locale={locale} title={title} description={description} image={image} />
     {jsonLd && <JsonLd data={jsonLd} />}
+    {noindex && <meta name="robots" content="noindex" />}
   </head>
   <body class="min-h-dvh overflow-x-clip">
     <a

@@ -12,6 +12,7 @@ import Services from '../components/home/Services.astro';
 import Stack from '../components/home/Stack.astro';
 import Stats from '../components/home/Stats.astro';
 import Work from '../components/home/Work.astro';
+import Contact from '../components/home/Contact.astro';
 
 interface Props {
   locale: Locale;
@@ -41,7 +42,7 @@ const person = {
     <Changelog locale={locale} />
     <Stack locale={locale} />
     <Services locale={locale} />
-    <slot />
+    <Contact locale={locale} />
   </main>
   <Footer locale={locale} />
 </BaseLayout>

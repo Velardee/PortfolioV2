@@ -1,0 +1,21 @@
+---
+import { localizedPath, t, type Locale } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/nav/Nav.astro';
+import Footer from '../components/Footer.astro';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<BaseLayout locale={locale} title={t(locale, 'meta.thanks.title')} description={t(locale, 'thanks.body')} noindex>
+  <Nav locale={locale} />
+  <main id="main" class="mx-auto flex min-h-[70vh] max-w-[1180px] flex-col justify-center px-4 md:px-9">
+    <p class="font-mono text-xs text-ok">{locale === 'es' ? '// estado: success' : '// state: success'}</p>
+    <h1 class="mt-4 font-display text-[clamp(3rem,8vw,6rem)] leading-none">{t(locale, 'thanks.title')}</h1>
+    <p class="mt-4 text-lg text-sub">{t(locale, 'thanks.body')}</p>
+    <a href={localizedPath(locale, 'home')} class="mt-8 text-signal hover:underline">{t(locale, 'back.home')}</a>
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+import { site } from '../../config/site';
+import { t, type Locale } from '../../i18n';
+import Reveal from '../ui/Reveal.astro';
+import ContactForm from './ContactForm.astro';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const link = 'rounded-full border border-line px-4 py-2 text-sm hover:border-bone';
+---
+
+<Reveal as="section" id="contacto" aria-labelledby="contacto-title" class="scroll-mt-20 border-t border-line/70 py-20">
+  <p class="fade mb-6 font-mono text-xs text-muted">// 07 — {t(locale, 'contact.label')}</p>
+  <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+    <div class="fade">
+      <h2 id="contacto-title" class="font-display text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02]">{t(locale, 'contact.title')}</h2>
+      <p class="mt-5 max-w-md leading-relaxed text-sub">{t(locale, 'contact.body')}</p>
+      <div class="mt-8 flex flex-wrap gap-2">
+        <button type="button" data-copy-email={site.email} data-copied={t(locale, 'contact.copied')} class={`${link} cursor-pointer font-mono`}>
+          <span data-label>{t(locale, 'contact.copy')}</span>
+        </button>
+        <a href={`mailto:${site.email}`} class={link}>{site.email}</a>
+        <a href={site.linkedin} class={link} target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href={site.github} class={link} target="_blank" rel="noopener">GitHub ↗</a>
+        <a href={site.cvPath[locale]} class={link}>{t(locale, 'contact.cv')} ↓</a>
+        {site.calendly && <a href={site.calendly} class={link} target="_blank" rel="noopener">{t(locale, 'contact.book')} ↗</a>}
+      </div>
+    </div>
+    <div class="fade" style="transition-delay:.15s"><ContactForm locale={locale} /></div>
+  </div>
+</Reveal>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((btn) => {
+    const label = btn.querySelector<HTMLElement>('[data-label]')!;
+    const original = label.textContent;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copyEmail!);
+        label.textContent = btn.dataset.copied ?? '';
+        setTimeout(() => (label.textContent = original), 2000);
+      } catch {
+        location.href = `mailto:${btn.dataset.copyEmail}`;
+      }
+    });
+  });
+</script>
