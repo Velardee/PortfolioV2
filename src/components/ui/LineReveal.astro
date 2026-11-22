@@ -1,0 +1,26 @@
+---
+interface Line {
+  text?: string;
+  em?: string;
+}
+interface Props {
+  lines: Line[];
+  tag?: 'h1' | 'h2';
+  class?: string;
+}
+const { lines, tag: Tag = 'h1', class: className } = Astro.props;
+---
+
+<Tag class={className}>
+  {
+    lines.map((l, i) => (
+      <span class="line">
+        <span style={`transition-delay:${i * 0.08}s`}>
+          {l.text}
+          {l.text && l.em ? ' ' : ''}
+          {l.em && <em class="text-signal">{l.em}</em>}
+        </span>
+      </span>
+    ))
+  }
+</Tag>

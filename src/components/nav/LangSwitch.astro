@@ -1,0 +1,17 @@
+---
+import { alternatePath, t, type Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const other: Locale = locale === 'es' ? 'en' : 'es';
+const href = alternatePath(Astro.url.pathname)[other];
+---
+
+<a
+  href={href}
+  hreflang={other}
+  lang={other}
+  aria-label={t(locale, 'a11y.lang')}
+  class="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] text-bone hover:border-bone"
+>{t(locale, 'lang.other')}</a>

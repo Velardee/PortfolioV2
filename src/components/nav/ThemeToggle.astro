@@ -1,0 +1,42 @@
+---
+import { t, type Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label={t(locale, 'a11y.theme')}
+  class="cursor-pointer rounded-full border border-line px-3 py-1.5 font-mono text-[11px] text-bone hover:border-bone"
+>
+  <span class="to-light">{t(locale, 'theme.toLight')}</span>
+  <span class="to-dark">{t(locale, 'theme.toDark')}</span>
+</button>
+
+<style>
+  :global([data-theme='dark']) .to-dark,
+  :global([data-theme='light']) .to-light {
+    display: none;
+  }
+</style>
+
+<script>
+  import { safeStorage } from '../../lib/storage';
+
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      const apply = () => {
+        root.dataset.theme = next;
+        safeStorage.set('local', 'theme', next);
+      };
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (document.startViewTransition && !reduce) document.startViewTransition(apply);
+      else apply();
+    });
+  });
+</script>

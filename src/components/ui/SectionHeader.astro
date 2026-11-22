@@ -1,0 +1,16 @@
+---
+interface Props {
+  index: string;
+  label: string;
+  title?: string;
+  lead?: string;
+  id?: string;
+}
+const { index, label, title, lead, id } = Astro.props;
+---
+
+<header class="mb-10 flex flex-wrap items-baseline justify-between gap-4">
+  {title && <h2 id={id} class="font-display text-[clamp(2.1rem,4.4vw,3.5rem)] leading-none fade">{title}</h2>}
+  <p class="font-mono text-xs text-muted fade">// {index} — {label}</p>
+  {lead && <p class="basis-full max-w-xl text-sub fade">{lead}</p>}
+</header>
