@@ -1,0 +1,53 @@
+---
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/inter-tight';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+import Seo from '../components/seo/Seo.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  image?: string;
+  jsonLd?: Record<string, unknown>;
+}
+
+const { locale, title, description, image, jsonLd } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline>
+      // Runs before first paint: theme without flash, and .js marks that animations may hide content.
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        var saved = null;
+        try { saved = localStorage.getItem('theme'); } catch (e) {}
+        d.dataset.theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      })();
+    </script>
+    <Seo locale={locale} title={title} description={description} image={image} />
+    {jsonLd && <JsonLd data={jsonLd} />}
+  </head>
+  <body class="min-h-dvh overflow-x-clip">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-signal focus:px-4 focus:py-2 focus:text-ink"
+    >{t(locale, 'a11y.skip')}</a>
+    <slot />
+  </body>
+</html>

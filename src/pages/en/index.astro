@@ -1,0 +1,10 @@
+---
+// Temporary until HomePage (Task 5).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n';
+const locale = 'en';
+---
+
+<BaseLayout locale={locale} title={t(locale, 'meta.home.title')} description={t(locale, 'meta.home.description')}>
+  <main id="main"><h1>{t(locale, 'hero.h1.1')}</h1></main>
+</BaseLayout>
