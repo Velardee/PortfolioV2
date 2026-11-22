@@ -6,6 +6,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://portfolio-hugovelarde.netlify.app',
   trailingSlash: 'always',
+  // Small CSS: inlining removes the render-blocking request (Lighthouse FCP).
+  build: { inlineStylesheets: 'always' },
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],

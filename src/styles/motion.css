@@ -6,6 +6,7 @@
 }
 .line > span {
   display: inline-block;
+  text-wrap: balance;
   transform: translateY(110%);
   transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
