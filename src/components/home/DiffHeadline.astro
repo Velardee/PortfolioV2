@@ -1,0 +1,87 @@
+---
+import { t, type Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<div data-diff>
+  <h2 class="max-w-[54rem] text-[clamp(1.9rem,3.8vw,3rem)] leading-[1.08] font-extrabold tracking-[-0.03em]">
+    {`${t(locale, 'approach.pre')} `}<del class="del">{t(locale, 'approach.del')}</del>{' '}<ins class="ins"
+      ><span data-typed>{t(locale, 'approach.ins')}</span></ins
+    >{` ${t(locale, 'approach.post')}`}
+  </h2>
+  <p class="note mt-3 font-mono text-[11px] text-muted" aria-hidden="true">{t(locale, 'approach.note')}</p>
+</div>
+
+<style>
+  .del {
+    position: relative;
+    color: var(--del-fg);
+    text-decoration: none;
+  }
+  .del::after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: 52%;
+    height: 4px;
+    background: var(--signal);
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  :global(html.js) .del::after {
+    transform: scaleX(0);
+    transition: transform 0.5s 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  :global(html.js .in) .del::after {
+    transform: scaleX(1);
+  }
+  .ins {
+    text-decoration: none;
+    background: var(--ins-bg);
+    color: var(--ins-fg);
+    padding: 0 6px;
+    border-radius: 4px;
+    box-decoration-break: clone;
+  }
+  [data-typed].typing {
+    border-right: 3px solid var(--ins-fg);
+    animation: blink 0.8s steps(1) infinite;
+  }
+  :global(html.js) .note {
+    opacity: 0;
+    transition: opacity 0.4s 2.2s;
+  }
+  :global(html.js .in) .note {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // The final text ships in the HTML (SEO, no-JS); JS only replays the typing.
+  const root = document.querySelector<HTMLElement>('[data-diff]');
+  const typed = root?.querySelector<HTMLElement>('[data-typed]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const section = root?.closest('.reveal');
+  if (root && typed && section && !reduce) {
+    const full = typed.textContent ?? '';
+    typed.textContent = ' ';
+    section.addEventListener(
+      'reveal:in',
+      () => {
+        typed.classList.add('typing');
+        let i = 0;
+        const step = () => {
+          typed.textContent = full.slice(0, ++i);
+          if (i < full.length) setTimeout(step, 70);
+          else setTimeout(() => typed.classList.remove('typing'), 1200);
+        };
+        setTimeout(step, 900);
+      },
+      { once: true },
+    );
+  }
+</script>

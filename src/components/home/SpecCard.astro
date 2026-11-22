@@ -1,0 +1,35 @@
+---
+import { site } from '../../config/site';
+import { t, type Locale } from '../../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const rows = [
+  [t(locale, 'spec.status.k'), t(locale, 'spec.status.v'), true],
+  [t(locale, 'spec.base.k'), t(locale, 'spec.base.v'), false],
+  [t(locale, 'spec.stack.k'), site.stackShort, false],
+  [t(locale, 'spec.version.k'), t(locale, 'spec.version.v'), false],
+  [t(locale, 'spec.reply.k'), t(locale, 'spec.reply.v'), false],
+] as const;
+---
+
+<dl class="fade rounded-xl border border-line bg-surface p-5 font-mono text-xs leading-loose" style="transition-delay:.9s">
+  {
+    rows.map(([k, v, ok]) => (
+      <div class="flex gap-3">
+        <dt class="w-24 shrink-0 text-muted">{k}</dt>
+        <dd class:list={[ok && 'text-ok']}>
+          {ok && <span class="dot mr-1.5 inline-block size-[7px] rounded-full bg-ok align-middle" aria-hidden="true" />}
+          {v}
+        </dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .dot {
+    animation: pulse 1.6s infinite;
+  }
+</style>

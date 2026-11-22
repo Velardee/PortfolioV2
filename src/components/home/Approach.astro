@@ -1,0 +1,31 @@
+---
+import { t, type Locale } from '../../i18n';
+import Reveal from '../ui/Reveal.astro';
+import DiffHeadline from './DiffHeadline.astro';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const principles = ([1, 2, 3] as const).map((n) => ({
+  title: t(locale, `principle.${n}.title`),
+  body: t(locale, `principle.${n}.body`),
+}));
+---
+
+<Reveal as="section" id="enfoque" class="scroll-mt-20 border-t border-line/70 py-20">
+  <p class="fade mb-8 font-mono text-xs text-muted">// 03 — {t(locale, 'approach.label')}</p>
+  <DiffHeadline locale={locale} />
+  <div class="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+    <p class="fade leading-relaxed text-sub" style="transition-delay:.3s">{t(locale, 'approach.bio')}</p>
+    <ol class="grid gap-5">
+      {
+        principles.map((p, i) => (
+          <li class="fade border-l-2 border-signal pl-4" style={`transition-delay:${0.4 + i * 0.1}s`}>
+            <p class="font-semibold">{p.title}</p>
+            <p class="mt-1 text-sm text-sub">{p.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</Reveal>

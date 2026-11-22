@@ -1,0 +1,89 @@
+---
+import { t, type Locale } from '../../i18n';
+import type { ExperienceEntry } from '../../lib/content';
+interface Props {
+  locale: Locale;
+  entry: ExperienceEntry;
+  index: number;
+}
+const { locale, entry, index } = Astro.props;
+const e = entry.data;
+---
+
+<article tabindex="0" class="entry relative grid gap-2 border-t border-dashed border-muted/40 py-6 md:grid-cols-[200px_1fr] md:gap-7" style={`transition-delay:${0.3 + index * 0.18}s`}>
+  <div>
+    <p class="font-mono text-xs text-signal">{e.version}</p>
+    <p class="mt-1 font-mono text-xs text-muted">{e.start} – {e.end}</p>
+  </div>
+  <div>
+    <h3 class="text-xl font-bold tracking-tight md:text-[1.35rem]">{e.company}</h3>
+    <p class="mt-1 font-mono text-[11px] text-muted">
+      {e.freelance && `${t(locale, 'changelog.freelance')} · `}{e.role}{e.stack.length > 0 && ` · ${e.stack.join(' · ')}`}
+    </p>
+    <div class="diff font-mono text-xs">
+      {e.plus.map((line) => <p class="p">+ {line}</p>)}
+      {e.minus.map((line) => <p class="m">− {line}</p>)}
+    </div>
+  </div>
+</article>
+
+<style>
+  .entry {
+    opacity: 1;
+  }
+  :global(html.js) .entry {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  :global(html.js .in) .entry {
+    opacity: 1;
+    transform: none;
+  }
+  .entry::before {
+    content: '';
+    position: absolute;
+    left: -37px;
+    top: 28px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 2px solid var(--signal);
+  }
+  .entry:focus-visible {
+    outline-offset: 6px;
+  }
+  .diff {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease;
+  }
+  .entry:hover .diff,
+  .entry:focus-within .diff,
+  .entry:focus .diff {
+    max-height: 12rem;
+  }
+  :global(html:not(.js)) .diff {
+    max-height: none;
+  }
+  .diff p {
+    padding: 3px 8px;
+    margin-top: 4px;
+    border-radius: 3px;
+  }
+  .diff .p {
+    background: var(--ins-bg);
+    color: var(--ins-fg);
+  }
+  .diff .m {
+    background: color-mix(in srgb, var(--signal) 18%, transparent);
+    color: var(--signal);
+  }
+  @media (hover: none) {
+    .diff {
+      max-height: none;
+    }
+  }
+</style>
