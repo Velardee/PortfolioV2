@@ -1,0 +1,59 @@
+---
+import { t, type Locale } from '../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<!-- Ships hidden: only JS (first visit per session, motion allowed) shows it. -->
+<div
+  data-preloader
+  hidden
+  aria-hidden="true"
+  class="preloader fixed inset-0 z-50 flex flex-col justify-end bg-ink p-6 md:p-10"
+>
+  <p class="mb-3 font-mono text-xs text-muted">{t(locale, 'preloader.label')}</p>
+  <p data-count class="font-display text-[min(22vw,11rem)] leading-[0.8]">000</p>
+  <div class="mt-5 h-0.5 bg-line"><i data-bar class="block h-full w-0 bg-signal"></i></div>
+</div>
+
+<style>
+  .preloader {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 0.9s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  .preloader.out {
+    clip-path: inset(0 0 100% 0);
+  }
+</style>
+
+<script>
+  import { safeStorage } from '../lib/storage';
+  import { releasePreloader } from '../scripts/preloader-gate';
+
+  const DURATION = 1200;
+  const el = document.querySelector<HTMLElement>('[data-preloader]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!el || reduce || safeStorage.get('session', 'preloaded')) {
+    el?.remove();
+    releasePreloader();
+  } else {
+    const count = el.querySelector<HTMLElement>('[data-count]')!;
+    const bar = el.querySelector<HTMLElement>('[data-bar]')!;
+    el.hidden = false;
+    const t0 = performance.now();
+    const tick = (now: number) => {
+      const n = Math.min(100, Math.round(((now - t0) / DURATION) * 100));
+      count.textContent = String(n).padStart(3, '0');
+      bar.style.width = `${n}%`;
+      if (n < 100) return requestAnimationFrame(tick);
+      safeStorage.set('session', 'preloaded', '1');
+      el.classList.add('out');
+      releasePreloader();
+      el.addEventListener('transitionend', () => el.remove(), { once: true });
+    };
+    requestAnimationFrame(tick);
+  }
+</script>

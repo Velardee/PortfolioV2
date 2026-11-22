@@ -1,0 +1,28 @@
+---
+import { t, type Locale } from '../../i18n';
+import { getProjects } from '../../lib/content';
+import Reveal from '../ui/Reveal.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import CaseCard from './CaseCard.astro';
+import LabCard from './LabCard.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const cases = await getProjects(locale, 'case');
+const lab = await getProjects(locale, 'lab');
+---
+
+<Reveal as="section" id="trabajo" aria-labelledby="trabajo-title" class="scroll-mt-20 border-t border-line/70 py-20">
+  <SectionHeader id="trabajo-title" index="02" label={t(locale, 'work.label')} title={t(locale, 'work.title')} lead={t(locale, 'work.lead')} />
+  <div class="grid gap-5">
+    {cases.map((p, i) => <CaseCard locale={locale} project={p} index={i} />)}
+  </div>
+  <div class="mt-14">
+    <h3 class="fade text-xl font-extrabold">{t(locale, 'lab.title')} <span class="font-normal text-sub">{t(locale, 'lab.lead')}</span></h3>
+    <div class="mt-5 grid gap-4 md:grid-cols-2">
+      {lab.map((p) => <LabCard locale={locale} project={p} />)}
+    </div>
+  </div>
+</Reveal>

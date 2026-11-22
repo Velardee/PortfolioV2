@@ -1,0 +1,60 @@
+/* Line-by-line text reveal: wrap each line in .line > span; parent gets .in */
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.line > span {
+  display: inline-block;
+  text-wrap: balance;
+  transform: translateY(110%);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.in .line > span {
+  transform: none;
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+.in .fade,
+.in.fade {
+  opacity: 1;
+  transform: none;
+}
+
+/* Without JS nothing is hidden: html gets .js from the head script */
+html:not(.js) .line > span,
+html:not(.js) .fade {
+  transform: none;
+  opacity: 1;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); }
+  100% { box-shadow: 0 0 0 8px transparent; }
+}
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+@keyframes shake {
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .line > span,
+  .fade {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

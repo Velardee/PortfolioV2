@@ -1,0 +1,119 @@
+---
+import { site } from '../../config/site';
+import { t, type Locale } from '../../i18n';
+import Button from '../ui/Button.astro';
+import LineReveal from '../ui/LineReveal.astro';
+import Reveal from '../ui/Reveal.astro';
+import SpecCard from './SpecCard.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<Reveal class="hero grid items-end gap-12 pt-16 pb-14 md:pt-24 lg:grid-cols-[1.6fr_1fr]">
+  <div class="relative">
+    <div class="real">
+      <p class="fade mb-5 font-mono text-xs text-muted">{t(locale, 'hero.tag')}</p>
+      <LineReveal
+        tag="h1"
+        class="font-display text-[clamp(2.75rem,6.4vw,5.25rem)] leading-[0.98] font-normal tracking-[-0.01em]"
+        lines={[
+          { text: t(locale, 'hero.h1.1') },
+          { text: t(locale, 'hero.h1.2'), em: t(locale, 'hero.h1.2em') },
+          { em: t(locale, 'hero.h1.3em') },
+        ]}
+      />
+      <p class="fade mt-6 max-w-[34rem] text-[17px] leading-relaxed text-sub" style="transition-delay:.6s">{t(locale, 'hero.sub')}</p>
+      <div class="fade mt-7 flex flex-wrap gap-3" style="transition-delay:.8s">
+        <Button href="#contacto" data-contact-type="hire">{t(locale, 'hero.ctaHire')}</Button>
+        <Button href="#contacto" variant="secondary" data-contact-type="project">{t(locale, 'hero.ctaProject')}</Button>
+      </div>
+      <p class="fade mt-4 font-mono text-xs text-muted" style="transition-delay:.9s">
+        {t(locale, 'hero.micro')} · <a href={site.cvPath[locale]} class="underline underline-offset-4 hover:text-bone">{t(locale, 'hero.cv')}</a>
+      </p>
+    </div>
+    <div class="skel" aria-hidden="true">
+      <i style="width:30%;height:14px"></i><i style="width:92%"></i><i style="width:78%"></i><i style="width:60%;height:16px"></i>
+    </div>
+  </div>
+  <SpecCard locale={locale} />
+</Reveal>
+
+<div class="toast err" aria-hidden="true">{t(locale, 'state.error')}<br /><span class="opacity-70">{t(locale, 'state.errorAction')}</span></div>
+<div class="toast suc" aria-hidden="true">
+  <svg class="chk" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  {t(locale, 'state.success').replace('✓ ', '')}
+</div>
+
+<style>
+  .skel {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 40px;
+  }
+  .skel i {
+    height: 60px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--surface), color-mix(in srgb, var(--bone) 12%, var(--surface)), var(--surface));
+    background-size: 200% 100%;
+    animation: shimmer 1.1s infinite linear;
+  }
+  :global(body[data-ui-state='loading']) .skel {
+    display: flex;
+  }
+  :global(body[data-ui-state='loading']) .real {
+    visibility: hidden;
+  }
+  :global(body[data-ui-state='error']) .real {
+    animation: shake 0.45s;
+  }
+  .toast {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 30;
+    max-width: 22rem;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font: 13px/1.5 var(--font-mono);
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    transition: opacity 0.4s, transform 0.4s cubic-bezier(0.3, 1.4, 0.5, 1);
+  }
+  .toast.err {
+    background: #2a1510;
+    border: 1px solid #6b2a17;
+    color: #ffb199;
+  }
+  .toast.suc {
+    background: #11200f;
+    border: 1px solid #2e5a2c;
+    color: #a9e5b0;
+  }
+  :global(body[data-ui-state='error']) .toast.err,
+  :global(body[data-ui-state='success']) .toast.suc {
+    opacity: 1;
+    transform: none;
+  }
+  .chk {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    vertical-align: -4px;
+    margin-right: 6px;
+  }
+  .chk path {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+  }
+  :global(body[data-ui-state='success']) .chk path {
+    transition: stroke-dashoffset 0.5s 0.2s;
+    stroke-dashoffset: 0;
+  }
+</style>

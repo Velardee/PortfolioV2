@@ -1,0 +1,39 @@
+---
+import { localizedPath, t, type Locale } from '../../i18n';
+import LangSwitch from './LangSwitch.astro';
+import StateSwitcher from './StateSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  locale: Locale;
+  /** On the home anchors are "#id"; elsewhere they point back to the home. */
+  onHome?: boolean;
+}
+const { locale, onHome = false } = Astro.props;
+const home = localizedPath(locale, 'home');
+const base = onHome ? '' : home;
+const links = [
+  ['trabajo', 'nav.work'],
+  ['experiencia', 'nav.experience'],
+  ['enfoque', 'nav.approach'],
+  ['servicios', 'nav.services'],
+  ['contacto', 'nav.contact'],
+] as const;
+---
+
+<header class="sticky top-0 z-40 border-b border-line/60 bg-ink/80 backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-[1180px] items-center justify-between gap-4 px-4 md:px-9">
+    <a href={home} class="font-mono text-sm font-medium text-bone">HV<span class="sr-only"> — Hugo Velarde</span></a>
+    <nav aria-label={t(locale, 'a11y.nav')} class="hidden lg:block">
+      <ul class="flex gap-6 text-[13px] text-muted">
+        {links.map(([id, key]) => <li><a href={`${base}#${id}`} class="hover:text-bone">{t(locale, key)}</a></li>)}
+      </ul>
+    </nav>
+    <div class="flex items-center gap-2">
+      {onHome && <StateSwitcher locale={locale} />}
+      <ThemeToggle locale={locale} />
+      <LangSwitch locale={locale} />
+      <a href={`${base}#contacto`} class="rounded-full bg-signal px-3 py-1.5 text-[12px] font-semibold text-ink lg:hidden">{t(locale, 'nav.contact')}</a>
+    </div>
+  </div>
+</header>

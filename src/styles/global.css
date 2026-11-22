@@ -1,0 +1,81 @@
+@import "tailwindcss";
+@import "./motion.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root,
+[data-theme='dark'] {
+  --ink: #0f100d;
+  --surface: #181914;
+  --line: #2a2b25;
+  --bone: #ece9e1;
+  --muted: #8c8a82;
+  --sub: #b9b6ad;
+  --signal: #ff5a1f;
+  --ok: #7fd18b;
+  --ins-bg: #14301a;
+  --ins-fg: #8fe39b;
+  --del-fg: #6b6962;
+  --grid: rgb(236 233 225 / 0.05);
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --ink: #f4f2ec;
+  --surface: #ffffff;
+  --line: #151612;
+  --bone: #151612;
+  --muted: #6a685f;
+  --sub: #4b4a44;
+  --signal: #e0480f;
+  --ok: #2e8b45;
+  --ins-bg: #d8f0dc;
+  --ins-fg: #14632a;
+  --del-fg: #9a978e;
+  --grid: rgb(21 22 18 / 0.06);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-bone: var(--bone);
+  --color-muted: var(--muted);
+  --color-sub: var(--sub);
+  --color-signal: var(--signal);
+  --color-ok: var(--ok);
+  --color-ins-bg: var(--ins-bg);
+  --color-ins-fg: var(--ins-fg);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Inter Tight Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--ink);
+    color: var(--bone);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.5s, color 0.5s;
+  }
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: var(--signal);
+    color: var(--ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

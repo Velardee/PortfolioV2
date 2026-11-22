@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'> & { as?: 'section' | 'div' | 'article' | 'header' };
+const { as: Tag = 'div', class: className, ...rest } = Astro.props;
+---
+
+<Tag class:list={['reveal', className]} {...rest}><slot /></Tag>
+
+<script>
+  import { initReveal } from '../../scripts/reveal';
+  initReveal();
+</script>

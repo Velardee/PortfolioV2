@@ -1,0 +1,75 @@
+---
+import { t, type Locale } from '../../i18n';
+import type { UiState } from '../../lib/states';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const states: UiState[] = ['idle', 'loading', 'error', 'success'];
+---
+
+<div
+  role="group"
+  aria-label={t(locale, 'a11y.states')}
+  data-state-switcher
+  class="relative hidden rounded-full border border-line p-1 font-mono text-[11px] md:flex"
+>
+  <span data-pill aria-hidden="true" class="pill absolute top-1 bottom-1 left-1 rounded-full bg-signal"></span>
+  {
+    states.map((s) => (
+      <button
+        type="button"
+        data-state={s}
+        aria-pressed={s === 'idle' ? 'true' : 'false'}
+        class="relative z-10 cursor-pointer rounded-full px-2.5 py-1 text-muted transition-colors aria-pressed:text-ink"
+      >
+        {s}
+      </button>
+    ))
+  }
+</div>
+<p
+  class="sr-only"
+  aria-live="polite"
+  data-state-live
+  data-msg-loading={t(locale, 'state.loading')}
+  data-msg-error={t(locale, 'state.error')}
+  data-msg-success={t(locale, 'state.success')}
+>
+</p>
+
+<style>
+  .pill {
+    transition: left 0.45s cubic-bezier(0.5, 1.6, 0.4, 1), width 0.45s cubic-bezier(0.5, 1.6, 0.4, 1);
+  }
+</style>
+
+<script>
+  import { createStateMachine, type UiState } from '../../lib/states';
+
+  const root = document.querySelector<HTMLElement>('[data-state-switcher]');
+  const live = document.querySelector<HTMLElement>('[data-state-live]');
+  if (root && live) {
+    const pill = root.querySelector<HTMLElement>('[data-pill]')!;
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('button[data-state]')];
+
+    const movePill = (btn: HTMLButtonElement) => {
+      pill.style.left = `${btn.offsetLeft}px`;
+      pill.style.width = `${btn.offsetWidth}px`;
+    };
+
+    const machine = createStateMachine((s: UiState) => {
+      document.body.dataset.uiState = s;
+      for (const b of buttons) {
+        const on = b.dataset.state === s;
+        b.setAttribute('aria-pressed', String(on));
+        if (on) movePill(b);
+      }
+      live.textContent = s === 'idle' ? '' : (live.dataset[`msg${s[0].toUpperCase()}${s.slice(1)}`] ?? '');
+    });
+
+    buttons.forEach((b) => b.addEventListener('click', () => machine.set(b.dataset.state as UiState)));
+    requestAnimationFrame(() => movePill(buttons[0]));
+    document.fonts?.ready.then(() => movePill(buttons.find((b) => b.ariaPressed === 'true') ?? buttons[0]));
+  }
+</script>

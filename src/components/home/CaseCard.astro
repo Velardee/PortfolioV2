@@ -1,0 +1,56 @@
+---
+import { localizedPath, t, type Locale } from '../../i18n';
+import { slugOf, type ProjectEntry } from '../../lib/content';
+interface Props {
+  locale: Locale;
+  project: ProjectEntry;
+  index: number;
+}
+const { locale, project, index } = Astro.props;
+const p = project.data;
+const href = localizedPath(locale, 'case', slugOf(project));
+const blocks = [
+  [t(locale, 'work.problem'), p.problem],
+  [t(locale, 'work.solution'), p.solution],
+  [t(locale, 'work.outcome'), p.metrics.length ? p.metrics.map((m) => `${m.value} ${m.label}`).join(' · ') : p.outcome],
+] as const;
+---
+
+<article class="case fade group relative grid gap-6 rounded-2xl border border-line/70 bg-surface p-6 md:grid-cols-[180px_1fr] md:p-8" style={`transition-delay:${index * 0.12}s`}>
+  <div class="font-mono text-xs leading-relaxed text-muted">
+    <p class="text-signal">{String(index + 1).padStart(2, '0')}</p>
+    <p class="mt-2">{p.client}</p>
+    <p>{p.year} · {p.role}</p>
+  </div>
+  <div>
+    <h3 class="text-2xl font-extrabold tracking-tight md:text-[1.75rem]">
+      <a href={href} class="after:absolute after:inset-0 after:rounded-2xl">{p.title}: <span class="font-medium text-sub">{p.headline}</span></a>
+    </h3>
+    <dl class="mt-5 grid gap-5 md:grid-cols-3">
+      {
+        blocks.map(([k, v]) => (
+          <div>
+            <dt class="font-mono text-[11px] tracking-wider text-muted uppercase">{k}</dt>
+            <dd class="mt-1.5 line-clamp-4 text-sm leading-relaxed text-sub">{v}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+      <ul class="flex flex-wrap gap-1.5 font-mono text-[11px] text-muted">
+        {p.stack.slice(0, 5).map((s) => <li class="rounded border border-line/70 px-2 py-0.5">{s}</li>)}
+      </ul>
+      <span class="text-sm font-semibold text-signal transition-transform group-hover:translate-x-1">{t(locale, 'work.readCase')}</span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .case {
+    transition: opacity 0.8s, transform 0.8s, border-color 0.3s;
+  }
+  .case:hover,
+  .case:focus-within {
+    border-color: var(--signal);
+  }
+</style>

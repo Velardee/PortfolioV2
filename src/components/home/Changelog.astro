@@ -1,0 +1,51 @@
+---
+import { t, type Locale } from '../../i18n';
+import { getExperience } from '../../lib/content';
+import Reveal from '../ui/Reveal.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import ChangelogEntry from './ChangelogEntry.astro';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const entries = await getExperience(locale);
+---
+
+<Reveal as="section" id="experiencia" aria-labelledby="experiencia-title" class="scroll-mt-20 border-t border-line/70 py-20">
+  <SectionHeader id="experiencia-title" index="04" label={t(locale, 'changelog.label')} title={t(locale, 'changelog.title')} />
+  <div class="log relative pl-10">
+    <div class="rail" aria-hidden="true"><i></i></div>
+    {entries.map((e, i) => <ChangelogEntry locale={locale} entry={e} index={i} />)}
+    <p class="hint mt-4 font-mono text-[11px] text-muted">↑ {t(locale, 'changelog.hint')}</p>
+  </div>
+</Reveal>
+
+<style>
+  .rail {
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: color-mix(in srgb, var(--line) 70%, transparent);
+  }
+  .rail i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--signal);
+    transform-origin: top;
+  }
+  :global(html.js) .rail i {
+    transform: scaleY(0);
+    transition: transform 1.6s 0.2s cubic-bezier(0.6, 0, 0.2, 1);
+  }
+  :global(html.js .in) .rail i {
+    transform: none;
+  }
+  @media (hover: none) {
+    .hint {
+      display: none;
+    }
+  }
+</style>

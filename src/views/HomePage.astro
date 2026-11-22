@@ -1,0 +1,56 @@
+---
+import { site } from '../config/site';
+import { t, localizedPath, type Locale } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import Nav from '../components/nav/Nav.astro';
+import Preloader from '../components/Preloader.astro';
+import Approach from '../components/home/Approach.astro';
+import Changelog from '../components/home/Changelog.astro';
+import Hero from '../components/home/Hero.astro';
+import Services from '../components/home/Services.astro';
+import Stack from '../components/home/Stack.astro';
+import Stats from '../components/home/Stats.astro';
+import Work from '../components/home/Work.astro';
+import Contact from '../components/home/Contact.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const person = {
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: 'Software Engineer',
+  url: new URL(localizedPath(locale, 'home'), site.url).href,
+  sameAs: [site.linkedin, site.github],
+  address: { '@type': 'PostalAddress', addressLocality: site.location.city, addressCountry: site.location.country },
+  knowsAbout: ['React', 'Next.js', 'TypeScript', 'Node.js', 'UI/UX'],
+};
+---
+
+<BaseLayout locale={locale} title={t(locale, 'meta.home.title')} description={t(locale, 'meta.home.description')} jsonLd={person}>
+  <Preloader locale={locale} />
+  <div class="grid-bg pointer-events-none fixed inset-0 -z-10" aria-hidden="true"></div>
+  <Nav locale={locale} onHome />
+  <main id="main" class="mx-auto max-w-[1180px] px-4 md:px-9">
+    <Hero locale={locale} />
+    <Stats locale={locale} />
+    <Work locale={locale} />
+    <Approach locale={locale} />
+    <Changelog locale={locale} />
+    <Stack locale={locale} />
+    <Services locale={locale} />
+    <Contact locale={locale} />
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>
+
+<style>
+  .grid-bg {
+    background-image: linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: calc((min(100vw, 1180px) - 72px) / 12) 100%;
+    background-position: center;
+  }
+</style>

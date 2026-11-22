@@ -1,0 +1,30 @@
+---
+import { t, type Locale, type UiKey } from '../../i18n';
+import Reveal from '../ui/Reveal.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const layers: [UiKey, string[]][] = [
+  ['stack.interface', ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Ionic']],
+  ['stack.state', ['Zustand', 'Redux Toolkit', 'GraphQL', 'Apollo', 'REST']],
+  ['stack.backend', ['Node.js', 'Express', 'AdonisJS', 'Nest.js', 'MariaDB', 'Sequelize', 'Supabase', 'Firebase']],
+  ['stack.product', ['Figma', 'Stripe', 'Refine', 'Ant Design', 'Material UI']],
+  ['stack.exploring', ['Astro', 'Docker', 'MongoDB', 'React Native']],
+];
+---
+
+<Reveal as="section" id="stack" aria-labelledby="stack-title" class="scroll-mt-20 border-t border-line/70 py-20">
+  <SectionHeader id="stack-title" index="05" label={t(locale, 'stack.label')} title={t(locale, 'stack.title')} />
+  <dl class="divide-y divide-line/70 border-y border-line/70">
+    {
+      layers.map(([key, tools], i) => (
+        <div class="fade grid gap-2 py-4 md:grid-cols-[220px_1fr]" style={`transition-delay:${i * 0.08}s`}>
+          <dt class="font-mono text-xs text-muted">{t(locale, key)}</dt>
+          <dd class="text-bone">{tools.join(' · ')}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</Reveal>
