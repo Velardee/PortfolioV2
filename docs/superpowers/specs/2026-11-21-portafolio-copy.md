@@ -65,30 +65,16 @@ Fuente de verdad para todos los textos del sitio. El inglés está adaptado, no 
 - Botones del laboratorio: Ver en vivo · Código | Live · Code
 
 ### Caso 1 · Judigo Legal
-- Meta: Legal tech · Advante Digital · 2022–2024 · Fullstack
-- ES
-  - Titular: Un chat cliente-abogado en el que se puede confiar.
-  - Problema: Los clientes y sus abogados se comunicaban por canales dispersos, sin historial confiable ligado al caso. La plataforma necesitaba conversación directa sin perder mensajes entre dispositivos.
-  - Solución: Construí el sistema de chat en Next.js con NextUI y estado en Zustand. En el backend trabajé con AdonisJS y MariaDB, y sincronicé datos en tiempo real con Firebase. También di mantenimiento general a la plataforma.
-  - Resultado: TODO: métrica (por ejemplo usuarios activos, mensajes al mes o reducción de tickets). Mientras tanto: "Chat en producción usado por clientes y abogados de la plataforma."
-- EN
-  - Headline: A client-lawyer chat people can trust.
-  - Problem: Clients and lawyers talked across scattered channels with no reliable history tied to each case. The platform needed direct conversation that never lost messages across devices.
-  - Solution: Built the chat in Next.js with NextUI and Zustand. On the backend: AdonisJS and MariaDB, with real-time sync through Firebase. Also owned ongoing platform maintenance.
-  - Outcome: TODO: metric. Fallback: "Chat live in production, used by the platform's clients and lawyers."
+- Meta: Legal tech · Advante Digital · 2022–2024 · Fullstack → Líder del proyecto
+- Contexto real (Hugo): empezó en un equipo de dos con un senior y luego quedó como encargado con un practicante a cargo. El cliente sube su duda, la consulta aparece en tiempo real solo a abogados de su especialidad (SMS y correo para el plan más alto), OpenAI sugiere una respuesta al abogado y, al aceptar, se abre un chat hecho por Hugo en Firebase con contador y traducción EN↔ES en tiempo real.
+- ES y EN: ver src/content/projects/{es,en}/judigo-legal.md (texto final).
+- Resultado: TODO métrica (consultas al mes, tiempo de primera respuesta, abogados activos).
 
 ### Caso 2 · Motionode
-- Meta: Plataforma de datos · Advante Digital · 2022–2024 · Fullstack
-- ES
-  - Titular: Datos en tiempo real sin perder la consistencia de la interfaz.
-  - Problema: La plataforma necesitaba mostrar información que cambia en vivo sin que la interfaz se desincronizara ni se volviera inconsistente con el diseño.
-  - Solución: Diseñé esquemas de base de datos y endpoints con Node.js, Express, GraphQL, Sequelize y MariaDB, y colaboré en las funciones en tiempo real con Apollo. En el frontend construí interfaces fieles al diseño con React, Material UI y Redux Toolkit.
-  - Resultado: TODO: métrica. Mientras tanto: "Funciones en tiempo real en producción sobre una API GraphQL tipada."
-- EN
-  - Headline: Real-time data without breaking the UI.
-  - Problem: The platform had to show live-changing data without the interface drifting out of sync or away from the design.
-  - Solution: Designed database schemas and endpoints with Node.js, Express, GraphQL, Sequelize and MariaDB, and co-built real-time features with Apollo. Frontend in React, Material UI and Redux Toolkit, pixel-faithful to the design.
-  - Outcome: TODO: metric. Fallback: "Real-time features in production on a typed GraphQL API."
+- Meta: Gestor de proyectos con IA · Advante Digital · 2022–2024 · Fullstack
+- Contexto real (Hugo): plataforma que buscaba reemplazar a Asana usando IA. Múltiples tareas; lo más destacado: notificaciones y comentarios de tareas en tiempo real, y persistencia de sesión que regresa al usuario a lo último que vio en el proyecto.
+- ES y EN: ver src/content/projects/{es,en}/motionode.md (texto final).
+- Resultado: TODO métrica.
 
 ### Caso 3 · Clase Azul
 - Meta: Freelance · 2025–2026 · Fullstack + UI/UX

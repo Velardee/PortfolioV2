@@ -3,14 +3,14 @@ title: Judigo Legal
 client: Advante Digital
 kind: case
 year: "2022–2024"
-role: Fullstack
-stack: [Next.js, NextUI, Zustand, AdonisJS, MariaDB, Firebase]
-summary: Chat cliente-abogado en tiempo real para una plataforma legal.
-headline: Un chat cliente-abogado en el que se puede confiar.
-problem: Los clientes y sus abogados se comunicaban por canales dispersos, sin historial confiable ligado al caso. La plataforma necesitaba conversación directa sin perder mensajes entre dispositivos.
-solution: Construí el sistema de chat en Next.js con NextUI y estado en Zustand. En el backend trabajé con AdonisJS y MariaDB, y sincronicé datos en tiempo real con Firebase. También di mantenimiento general a la plataforma.
-outcome: Chat en producción usado por clientes y abogados de la plataforma.
-# TODO: métrica confirmada (usuarios activos, mensajes al mes o reducción de tickets)
+role: Fullstack → Líder del proyecto
+stack: [Next.js, NextUI, Zustand, Firebase, OpenAI, AdonisJS, MariaDB]
+summary: Plataforma legal con consultas en tiempo real, respuestas sugeridas con IA y chat traducido al instante.
+headline: Consultas legales que llegan al abogado correcto, con chat traducido en tiempo real.
+problem: Las personas con dudas legales no sabían a qué abogado acudir, y los abogados perdían tiempo revisando consultas fuera de su especialidad. Además, cliente y abogado no siempre hablaban el mismo idioma.
+solution: Empecé en un equipo de dos junto a un senior y después quedé como encargado del proyecto, con un practicante a mi cargo. El cliente publica su consulta y esta aparece en tiempo real solo a los abogados de esa especialidad; los del plan más alto reciben además un SMS y un correo. Al revisar los detalles, OpenAI le sugiere al abogado una posible respuesta. Al aceptar la consulta, ambos pasan a un chat que desarrollé de punta a punta con Firebase, con contador y traducción inglés–español en tiempo real.
+outcome: Cada consulta llega solo al especialista indicado, el abogado parte de una respuesta sugerida por IA y la conversación ocurre sin barrera de idioma.
+# TODO: métrica confirmada (consultas al mes, tiempo de primera respuesta, abogados activos)
 order: 1
 featured: true
 ---

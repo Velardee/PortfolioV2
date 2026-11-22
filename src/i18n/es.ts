@@ -77,7 +77,7 @@ export const es = {
   'approach.post': 'que tu equipo no tendrá que reescribir.',
   'approach.note': '1 file changed, 1 insertion(+), 1 deletion(−)',
   'approach.bio':
-    'Soy Hugo, ingeniero en software en Durango, México. Llevo más de 3 años construyendo productos web reales: un chat cliente-abogado, plataformas con datos en tiempo real y paneles administrativos. Me muevo cómodo entre diseño e implementación: tomo un requerimiento ambiguo y lo convierto en flujos, componentes y estados que alguien más puede mantener sin pedirme explicaciones.',
+    'Soy Hugo, ingeniero en software en Durango, México. Llevo más de 3 años construyendo productos web reales: una plataforma legal con IA y chat traducido en tiempo real, un gestor de proyectos colaborativo y paneles administrativos, y he liderado un proyecto con un practicante a mi cargo. Me muevo cómodo entre diseño e implementación: tomo un requerimiento ambiguo y lo convierto en flujos, componentes y estados que alguien más puede mantener sin pedirme explicaciones.',
   'principle.1.title': 'Primero los estados.',
   'principle.1.body': 'Antes de escribir código pregunto qué pasa si falla, si tarda o si viene vacío.',
   'principle.2.title': 'Código que se lee.',

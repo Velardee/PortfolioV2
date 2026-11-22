@@ -79,7 +79,7 @@ export const en: Record<UiKey, string> = {
   'approach.post': "your team won't have to rewrite.",
   'approach.note': '1 file changed, 1 insertion(+), 1 deletion(−)',
   'approach.bio':
-    "I'm Hugo, a software engineer based in Durango, Mexico. For 3+ years I've shipped real web products: a client-lawyer chat, real-time data platforms and admin dashboards. I sit comfortably between design and engineering. I take a fuzzy requirement and turn it into flows, components and states someone else can maintain without asking me what I meant.",
+    "I'm Hugo, a software engineer based in Durango, Mexico. For 3+ years I've shipped real web products: a legal platform with AI and real-time translated chat, a collaborative project manager and admin dashboards, and I have led a project while mentoring an intern. I sit comfortably between design and engineering. I take a fuzzy requirement and turn it into flows, components and states someone else can maintain without asking me what I meant.",
   'principle.1.title': 'States first.',
   'principle.1.body': 'Before writing code, I ask what happens when it fails, stalls or comes back empty.',
   'principle.2.title': 'Readable code.',

@@ -5,11 +5,11 @@ kind: case
 year: "2022–2024"
 role: Fullstack
 stack: [React, Material UI, Redux Toolkit, Node.js, Express, GraphQL, Apollo, Sequelize, MariaDB]
-summary: Plataforma con datos en tiempo real sobre una API GraphQL.
-headline: Datos en tiempo real sin perder la consistencia de la interfaz.
-problem: La plataforma necesitaba mostrar información que cambia en vivo sin que la interfaz se desincronizara ni se volviera inconsistente con el diseño.
-solution: Diseñé esquemas de base de datos y endpoints con Node.js, Express, GraphQL, Sequelize y MariaDB, y colaboré en las funciones en tiempo real con Apollo. En el frontend construí interfaces fieles al diseño con React, Material UI y Redux Toolkit.
-outcome: Funciones en tiempo real en producción sobre una API GraphQL tipada.
+summary: Gestor de proyectos con IA pensado como alternativa a Asana.
+headline: Un gestor de proyectos con IA donde todo pasa en tiempo real.
+problem: Motionode buscaba reemplazar a Asana usando IA. Para competir con una herramienta así, la colaboración tenía que sentirse instantánea y nadie debía perder su contexto al cerrar la app.
+solution: Trabajé en múltiples frentes del producto. Lo más destacado fueron las funciones en tiempo real, notificaciones y comentarios en las tareas con GraphQL y Apollo, sobre esquemas y endpoints que diseñé con Node.js, Express, Sequelize y MariaDB. También la persistencia de sesión, que hacía que si cerrabas la app dentro de un proyecto, al volver te llevaba directo a lo último que estabas viendo. El frontend lo construí con React, Material UI y Redux Toolkit.
+outcome: Colaboración en tiempo real y regreso automático al último contexto, en producción.
 # TODO: métrica confirmada
 order: 2
 featured: true
