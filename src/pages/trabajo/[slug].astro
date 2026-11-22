@@ -1,0 +1,9 @@
+---
+import CasePage from '../../views/CasePage.astro';
+import { casePaths } from '../../lib/case-paths';
+
+export const getStaticPaths = () => casePaths('es');
+const { project, prev, next } = Astro.props;
+---
+
+<CasePage locale="es" project={project} prev={prev} next={next} />

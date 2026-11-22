@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/nav/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { t } from '../i18n';
+const locale = 'es';
+---
+
+<BaseLayout locale={locale} title={t(locale, 'meta.404.title')} description={t(locale, 'notFound.body')} noindex>
+  <Nav locale={locale} />
+  <main id="main" class="mx-auto flex min-h-[70vh] max-w-[1180px] flex-col justify-center px-4 md:px-9">
+    <p class="font-mono text-xs text-signal">{t(locale, 'notFound.tag')}</p>
+    <h1 class="mt-4 max-w-3xl font-display text-[clamp(2.75rem,7vw,5.5rem)] leading-none">{t(locale, 'notFound.title')}</h1>
+    <p class="mt-4 text-lg text-sub">{t(locale, 'notFound.body')}</p>
+    <p lang="en" class="mt-1 text-sub">{t('en', 'notFound.title')} {t('en', 'notFound.body')}</p>
+    <div class="mt-8 flex gap-6">
+      <a href="/" class="text-signal hover:underline">{t(locale, 'back.home')}</a>
+      <a href="/en/" hreflang="en" class="text-bone hover:underline">{t('en', 'back.home')}</a>
+    </div>
+  </main>
+  <Footer locale={locale} />
+</BaseLayout>
