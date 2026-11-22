@@ -21,7 +21,9 @@ export function initReveal(): void {
           io.unobserve(e.target);
         }
       },
-      { threshold: 0.3 },
+      // Ratio thresholds break for sections taller than the viewport (Trabajo on phones maxes at ~0.22).
+      // Trigger when the top edge passes 85% of the viewport instead.
+      { threshold: 0, rootMargin: '0px 0px -15% 0px' },
     );
     els.forEach((el) => io.observe(el));
   });
