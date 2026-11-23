@@ -154,6 +154,6 @@ export const en: Record<UiKey, string> = {
   'case.next': 'Next case →',
   'case.stack': 'Stack',
 
-  'footer.made': 'Hand-built with Astro · Durango, MX',
+  'footer.made': 'Built with Astro · Durango, MX',
   'footer.updated': 'Updated',
 };
