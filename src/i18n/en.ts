@@ -4,7 +4,8 @@ import type { UiKey } from './es';
 export const en: Record<UiKey, string> = {
   'meta.home.title': 'Hugo Velarde — Software Engineer · Frontend & Fullstack',
   'meta.home.description':
-    'Software engineer based in Mexico. I build web products with Next.js, React and TypeScript that handle every state: loading, error and success. Available for teams and projects.',
+    'Software engineer in Mexico. I build web products with Next.js, React and TypeScript that handle loading, error and success. Open to teams and projects.',
+  'meta.og.alt': 'Hugo Velarde — Software Engineer, Frontend and Fullstack',
   'meta.case.suffix': 'Case study · Hugo Velarde',
   'meta.404.title': 'State not found · Hugo Velarde',
   'meta.thanks.title': 'Message received · Hugo Velarde',

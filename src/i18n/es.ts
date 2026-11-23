@@ -2,7 +2,8 @@
 export const es = {
   'meta.home.title': 'Hugo Velarde — Ingeniero en Software · Frontend & Fullstack',
   'meta.home.description':
-    'Ingeniero en Software en Durango, MX. Construyo productos web con Next.js, React y TypeScript que resuelven todos sus estados: carga, error y éxito. Disponible para equipos y proyectos.',
+    'Ingeniero en Software en Durango, MX. Productos web con Next.js, React y TypeScript que resuelven carga, error y éxito. Disponible para equipos y proyectos.',
+  'meta.og.alt': 'Hugo Velarde — Ingeniero en Software, Frontend y Fullstack',
   'meta.case.suffix': 'Caso de estudio · Hugo Velarde',
   'meta.404.title': 'Estado no encontrado · Hugo Velarde',
   'meta.thanks.title': 'Mensaje recibido · Hugo Velarde',

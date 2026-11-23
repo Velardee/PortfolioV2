@@ -24,3 +24,9 @@ for (const [locale, c] of Object.entries(copy)) {
   await sharp(Buffer.from(svg)).png().toFile(`public/og/og-${locale}.png`);
   console.log(`public/og/og-${locale}.png`);
 }
+
+// PNG icons: WhatsApp, iMessage and Slack previews ignore SVG favicons.
+for (const [file, size] of [['apple-touch-icon.png', 180], ['icon-192.png', 192]]) {
+  await sharp('public/favicon.svg', { density: 300 }).resize(size, size).flatten({ background: '#0F100D' }).png().toFile(`public/${file}`);
+  console.log(`public/${file}`);
+}
