@@ -152,7 +152,7 @@ export const es = {
   'case.next': 'Siguiente caso →',
   'case.stack': 'Stack',
 
-  'footer.made': 'Hecho a mano con Astro · Durango, MX',
+  'footer.made': 'Hecho con Astro · Durango, MX',
   'footer.updated': 'Actualizado',
 } as const;
 

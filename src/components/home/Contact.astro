@@ -7,12 +7,14 @@ interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-const link = 'rounded-full border border-line px-4 py-2 text-sm hover:border-bone';
+// Form hidden for now; set to true to bring it back (also restores Netlify form detection).
+const showForm = false;
+const link ='rounded-full border border-line px-4 py-2 text-sm hover:border-bone';
 ---
 
 <Reveal as="section" id="contacto" aria-labelledby="contacto-title" class="scroll-mt-20 border-t border-line/70 py-20">
   <p class="fade mb-6 font-mono text-xs text-muted">// 07 — {t(locale, 'contact.label')}</p>
-  <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+  <div class:list={['grid gap-12', showForm && 'lg:grid-cols-[1fr_1.1fr]']}>
     <div class="fade">
       <h2 id="contacto-title" class="font-display text-[clamp(2.25rem,4.6vw,3.75rem)] leading-[1.02]">{t(locale, 'contact.title')}</h2>
       <p class="mt-5 max-w-md leading-relaxed text-sub">{t(locale, 'contact.body')}</p>
@@ -27,7 +29,7 @@ const link = 'rounded-full border border-line px-4 py-2 text-sm hover:border-bon
         {site.calendly && <a href={site.calendly} class={link} target="_blank" rel="noopener">{t(locale, 'contact.book')} ↗</a>}
       </div>
     </div>
-    <div class="fade" style="transition-delay:.15s"><ContactForm locale={locale} /></div>
+    {showForm && <div class="fade" style="transition-delay:.15s"><ContactForm locale={locale} /></div>}
   </div>
 </Reveal>
 

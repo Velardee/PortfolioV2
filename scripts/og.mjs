@@ -16,7 +16,7 @@ for (const [locale, c] of Object.entries(copy)) {
   ${Array.from({ length: 11 }, (_, i) => `<line x1="${100 + i * 100}" y1="0" x2="${100 + i * 100}" y2="630" stroke="#ECE9E1" stroke-opacity="0.05"/>`).join('')}
   <text x="80" y="110" font-family="Consolas, 'JetBrains Mono', monospace" font-size="24" fill="#8C8A82">${esc(c.tag)}</text>
   <text x="80" y="300" font-family="Georgia, 'Instrument Serif', serif" font-size="64" fill="#ECE9E1">${esc(c.l1)}</text>
-  <text x="80" y="380" font-family="Georgia, 'Instrument Serif', serif" font-size="64" font-style="italic" fill="#FF5A1F">${esc(c.l2)}</text>
+  <text x="80" y="380" font-family="Georgia, 'Instrument Serif', serif" font-size="64" font-style="italic" fill="#7B8CFF">${esc(c.l2)}</text>
   <circle cx="92" cy="530" r="7" fill="#7FD18B"/>
   <text x="112" y="539" font-family="Consolas, monospace" font-size="26" fill="#ECE9E1">Hugo Velarde</text>
   <text x="1120" y="539" text-anchor="end" font-family="Consolas, monospace" font-size="22" fill="#8C8A82">Next.js · React · TS</text>
